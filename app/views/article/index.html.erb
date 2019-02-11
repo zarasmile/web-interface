@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<style>
+    .form-wrapper {
+        padding: 20px;
+    }
+</style>
+
+<div class="form-wrapper">
+    <%= form_tag("/", method: :get, class: "form-inline") do %>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" name="search" value="<%= params[:search] %>"  placeholder="Поиск">
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Найти</button>
+    <% end %>
+</div>
+
+<div class="list-group">
+    <%- @articles.each do |item| %>
+        <a href="<%= item["url"] %>" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><%= item["title"] %></h5>
+                <small><%= item["published_at"] %></small>
+            </div>
+            <img src="<%= item["url_to_image"] %>" class="img-thumbnail" style="max-width: 200px;" alt="<%= item["title"] %>">
+            <p class="mb-1"><%= item["description"] %></p>
+            <small><%= item["author"] %></small>
+        </a>
+    <% end %>
+</div>
